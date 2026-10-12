@@ -5,7 +5,7 @@ export const profile = {
   email: 'ziiiwwww@icloud.com',
   intro:
     '具备从0到1搭建品牌VI体系、IP形象全案与全场景视觉统筹的复合型设计能力。擅长将机器人硬件、技术白皮书、产品宣传等复杂内容转译为清晰、有传播力的视觉语言，并以数据反馈推动设计迭代。',
-  heroTitle: '把复杂内容，做成锋利的视觉表达。',
+  heroTitle: '从策略到落地，让视觉真正解决问题。',
   heroSubtitle:
     'Brand systems / cultural creative / illustration / AI-assisted creative workflows.',
   aboutIntro: [
