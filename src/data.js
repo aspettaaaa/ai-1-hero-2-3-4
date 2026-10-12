@@ -121,6 +121,11 @@ export const projects = [
           caption: '小零IP设定、三视图、场景主视觉、表情包与衍生品',
         },
       ],
+      // 有此项时，「延展视觉」右侧文字栏改为展示该图（替代 MY ROLE 文案块）
+      followupVisual: {
+        src: '/assets/robot-zero-brand-workflow.webp',
+        alt: '零次方机器人品牌视觉体系全链路建设流程图：项目启动与需求对齐、跨部门协同、多工作流并行推进、外部供应商协调、质量控制与项目闭环',
+      },
     },
   },
   {

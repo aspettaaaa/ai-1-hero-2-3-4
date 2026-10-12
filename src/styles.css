@@ -1425,6 +1425,21 @@ h1 {
   padding-top: 112px;
 }
 
+/* 替换 MY ROLE 文案块的流程图：不参与 flex 收缩，避免被压扁 */
+.detail-followup-figure {
+  flex: 0 0 auto;
+}
+
+.detail-followup-figure img {
+  display: block;
+}
+
+/* 流程图版右栏内容高于视口（约 1325px），取消吸附让整图随页面正常滚动，
+   否则吸附期间底部会被视口裁掉，"查看其他项目"页脚也无法看到 */
+.detail-followup-copy--figure {
+  position: static;
+}
+
 .large {
   height: 62px;
   padding: 0 26px;

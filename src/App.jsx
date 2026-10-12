@@ -394,17 +394,30 @@ function ProjectDetail({ project }) {
               </figure>
             </div>
 
-            <aside className="detail-followup-copy">
+            <aside
+              className={`detail-followup-copy${detail.followupVisual ? ' detail-followup-copy--figure' : ''}`}
+            >
               <div className="detail-copy-inner">
-                <div className="detail-section">
-                  <span className="detail-section-label">MY ROLE</span>
-                  <h2>{followupTitle}</h2>
-                  <ul>
-                    {detail.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                </div>
+                {detail.followupVisual ? (
+                  <figure className="detail-media-item detail-followup-figure">
+                    <img
+                      src={detail.followupVisual.src}
+                      alt={detail.followupVisual.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                ) : (
+                  <div className="detail-section">
+                    <span className="detail-section-label">MY ROLE</span>
+                    <h2>{followupTitle}</h2>
+                    <ul>
+                      {detail.highlights.map((highlight) => (
+                        <li key={highlight}>{highlight}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <div className="detail-footer-note">
                   <span>{detail.period}</span>
                   <a href="#projects">
