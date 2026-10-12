@@ -1425,19 +1425,460 @@ h1 {
   padding-top: 112px;
 }
 
-/* 替换 MY ROLE 文案块的流程图：不参与 flex 收缩，避免被压扁 */
-.detail-followup-figure {
+/* ============================================================
+   「品牌视觉体系全链路建设」流程图（HTML 排版版）
+   替换 MY ROLE 文案块，渲染在「延展视觉」右侧 1fr 栏内。
+   注意：不改变 2fr/1fr 栅格比例，避免左侧延展视觉图宽度与其它行不一致。
+   ============================================================ */
+
+/* 右栏内容远高于视口，取消吸附让整块随页面正常滚动，
+   否则吸附期间底部会被视口裁掉，「查看其他项目」页脚也无法看到 */
+.detail-followup-copy--workflow {
+  position: static;
+  /* 左侧延展视觉图（约 3337px）比本栏高，拉伸底色避免右下露出页面背景 */
+  align-self: stretch;
+}
+
+/* 内容密集，收窄左右内边距换取可用宽度（不动栅格，左图宽度不受影响） */
+.detail-followup-copy--workflow .detail-copy-inner {
+  /* 建立查询容器：整张图按本栏实际宽度等比缩放（336px ~ 560px+ 都成立） */
+  container-type: inline-size;
+  padding-right: clamp(20px, 3vw, 46px);
+  padding-left: clamp(20px, 3vw, 46px);
+}
+
+/* 尺寸全部用 em，基准字号随栏宽走：
+   1440px 视口（栏内 394px）≈ 11.4px，1920px（栏内 548px）≈ 15.9px，窄屏下限 11px */
+.wf {
+  display: flex;
+  flex-direction: column;
+  gap: 2.26em;
+  width: 100%;
+  font-size: clamp(11px, 2.9cqw, 15.5px);
+}
+
+.wf svg {
   flex: 0 0 auto;
 }
 
-.detail-followup-figure img {
-  display: block;
+.wf-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.78em;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.56em;
 }
 
-/* 流程图版右栏内容高于视口（约 1325px），取消吸附让整图随页面正常滚动，
-   否则吸附期间底部会被视口裁掉，"查看其他项目"页脚也无法看到 */
-.detail-followup-copy--figure {
-  position: static;
+.wf-kicker {
+  color: var(--accent);
+  font-size: 0.96em;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.wf-head h2 {
+  margin: 0;
+  font-size: 2.15em;
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.wf-head p {
+  margin: 0;
+  color: var(--faint);
+  font-size: 1.04em;
+  line-height: 1.7;
+}
+
+.wf-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2.09em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wf-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.13em;
+}
+
+.wf-section-head {
+  display: flex;
+  gap: 1.04em;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.96em;
+}
+
+.wf-no {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 1.83em;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.wf-section-title h3 {
+  margin: 0;
+  font-size: 1.3em;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.wf-section-title p {
+  margin: 0.35em 0 0;
+  color: var(--faint);
+  font-size: 0.96em;
+  line-height: 1.6;
+}
+
+/* ---- 01 / 05：图标卡 ---- */
+.wf-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7em;
+}
+
+.wf-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.61em;
+  border: 1px solid var(--line);
+  border-radius: 0.87em;
+  background: var(--surface);
+  padding: 0.87em;
+}
+
+.wf-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.17em;
+  height: 2.17em;
+  border-radius: 0.7em;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.wf-card-icon svg {
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.wf-card strong {
+  color: var(--text);
+  font-size: 1.04em;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.wf-card em {
+  color: var(--faint);
+  font-size: 0.91em;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+/* ---- 02：跨部门协同 ---- */
+.wf-collab {
+  display: flex;
+  flex-direction: column;
+  gap: 0.96em;
+}
+
+.wf-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.26em;
+  border: 1px solid rgba(182, 118, 255, 0.34);
+  border-radius: 1.39em;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(182, 118, 255, 0.2), transparent 72%),
+    rgba(182, 118, 255, 0.06);
+  padding: 1.13em 1.04em;
+  text-align: center;
+}
+
+.wf-hub-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.87em;
+  height: 2.87em;
+  margin-bottom: 0.26em;
+  border: 1px solid rgba(182, 118, 255, 0.42);
+  border-radius: 50%;
+  color: var(--accent);
+}
+
+.wf-hub-icon svg {
+  width: 1.57em;
+  height: 1.57em;
+}
+
+.wf-hub strong {
+  font-size: 1.22em;
+  font-weight: 800;
+}
+
+.wf-hub em {
+  color: var(--faint);
+  font-size: 0.91em;
+  font-style: normal;
+}
+
+.wf-ring {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52em;
+}
+
+.wf-ring span {
+  border: 1px dashed rgba(182, 118, 255, 0.32);
+  border-radius: 999px;
+  padding: 0.35em 0.7em;
+  color: var(--muted);
+  font-size: 0.91em;
+  font-weight: 700;
+  text-align: center;
+}
+
+.wf-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 0.52em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wf-teams li {
+  display: flex;
+  gap: 0.78em;
+  align-items: flex-start;
+  border: 1px solid var(--line);
+  border-radius: 0.87em;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 0.78em 0.87em;
+}
+
+.wf-team-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 2.09em;
+  height: 2.09em;
+  border-radius: 0.61em;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.wf-team-icon svg {
+  width: 1.22em;
+  height: 1.22em;
+}
+
+.wf-teams strong {
+  display: flex;
+  align-items: center;
+  gap: 0.52em;
+  font-size: 1.04em;
+  font-weight: 800;
+}
+
+.wf-teams strong b {
+  border-radius: 999px;
+  background: var(--accent-soft);
+  padding: 0.09em 0.52em;
+  color: var(--accent);
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.wf-teams p {
+  margin: 0.26em 0 0;
+  color: var(--faint);
+  font-size: 0.91em;
+  line-height: 1.55;
+}
+
+.wf-output {
+  display: flex;
+  flex-direction: column;
+  gap: 0.61em;
+  border: 1px solid var(--line);
+  border-radius: 0.87em;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 0.87em;
+}
+
+.wf-output-label {
+  color: var(--faint);
+  font-size: 0.83em;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.wf-output-tags {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52em;
+}
+
+.wf-output-tags span {
+  border-radius: 0.52em;
+  background: var(--accent-soft);
+  padding: 0.35em 0.52em;
+  color: var(--muted);
+  font-size: 0.91em;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---- 03：多工作流并行推进 ---- */
+.wf-parallel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.96em;
+}
+
+.wf-tracks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wf-tracks li {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  border-radius: 0.87em;
+  background: rgba(255, 255, 255, 0.025);
+  padding: 0.7em 0.87em;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.wf-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px dashed rgba(182, 118, 255, 0.28);
+  border-radius: 1.39em;
+  padding: 1.04em 0.87em;
+}
+
+.wf-flow-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wf-step {
+  border-radius: 999px;
+  background: var(--accent-soft);
+  padding: 0.43em 1.22em;
+  color: var(--text);
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.wf-flow-arrow {
+  width: 1.13em;
+  height: 1.13em;
+  margin: 0.26em 0;
+  color: var(--accent);
+  opacity: 0.72;
+}
+
+/* ---- 04：外部供应商协调 ---- */
+.wf-supplier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.52em;
+}
+
+.wf-party {
+  min-width: 64%;
+  border: 1px solid rgba(182, 118, 255, 0.34);
+  border-radius: 0.87em;
+  background: rgba(182, 118, 255, 0.08);
+  padding: 0.7em 1.04em;
+  font-size: 1.04em;
+  font-weight: 800;
+  text-align: center;
+}
+
+.wf-supplier-arrow {
+  width: 1.22em;
+  height: 1.22em;
+  color: var(--accent);
+  opacity: 0.72;
+}
+
+.wf-bridge {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.52em;
+  width: 100%;
+}
+
+.wf-bridge span {
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  padding: 0.43em 0.7em;
+  color: var(--muted);
+  font-size: 0.91em;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---- 收尾 ---- */
+.wf-outro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+
+.wf-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  border: 1px solid rgba(182, 118, 255, 0.3);
+  border-radius: 1.39em;
+  background: linear-gradient(135deg, rgba(182, 118, 255, 0.18), rgba(182, 118, 255, 0.04));
+  padding: 1.22em;
+  text-align: center;
+}
+
+.wf-footer strong {
+  font-size: 1.22em;
+  font-weight: 800;
+}
+
+.wf-footer span {
+  color: var(--muted);
+  font-size: 0.91em;
+  line-height: 1.5;
+}
+
+.wf-brand {
+  align-self: flex-end;
+  color: var(--faint);
+  font-size: 0.91em;
+  letter-spacing: 0.04em;
 }
 
 .large {

@@ -121,10 +121,95 @@ export const projects = [
           caption: '小零IP设定、三视图、场景主视觉、表情包与衍生品',
         },
       ],
-      // 有此项时，「延展视觉」右侧文字栏改为展示该图（替代 MY ROLE 文案块）
-      followupVisual: {
-        src: '/assets/robot-zero-brand-workflow.webp',
-        alt: '零次方机器人品牌视觉体系全链路建设流程图：项目启动与需求对齐、跨部门协同、多工作流并行推进、外部供应商协调、质量控制与项目闭环',
+      // 有此项时，「延展视觉」右侧文字栏改为用 HTML 排版这张流程图（替代 MY ROLE 文案块）。
+      // kind 决定该节的版式：cards 图标卡 / collab 协同网络 / parallel 并行流 / supplier 上下游。
+      followupWorkflow: {
+        kicker: 'MY ROLE',
+        title: '品牌视觉体系全链路建设',
+        subtitle: '以品牌为核心，以协作为纽带，以交付为结果',
+        sections: [
+          {
+            no: '01',
+            title: '项目启动与需求对齐',
+            meta: '策划方向 · 锁定目标 · 建立计划',
+            kind: 'cards',
+            items: [
+              { icon: 'ClipboardList', title: '项目需求梳理' },
+              { icon: 'Target', title: '品牌目标与应用场景确认' },
+              { icon: 'LayoutGrid', title: '设计范围拆解' },
+              { icon: 'CalendarCheck', title: '项目计划与交付标准确认' },
+            ],
+          },
+          {
+            no: '02',
+            title: '跨部门协同',
+            meta: '需求对齐 · 信息融合 · 评审反馈 · 标准统一',
+            kind: 'collab',
+            hub: {
+              label: '项目负责人',
+              meta: '协同 · 推进 · 交付',
+              ring: ['需求对齐', '信息融合', '设计评审', '标准统一'],
+            },
+            teams: [
+              {
+                icon: 'Palette',
+                name: '品牌设计',
+                tag: '核心角色',
+                points: ['视觉策略', '风格定义', '规范输出', '资产沉淀'],
+              },
+              {
+                icon: 'Boxes',
+                name: '产品团队',
+                points: ['产品需求', '应用场景', '功能确认'],
+              },
+              {
+                icon: 'Cpu',
+                name: '研发团队',
+                points: ['技术条件', '实现边界', '落地可行性确认'],
+              },
+              {
+                icon: 'Megaphone',
+                name: '市场团队',
+                points: ['传播目标', '市场反馈', '落地效果确认'],
+              },
+            ],
+            outputs: ['需求汇总', '方案评审', '信息同步', '迭代优化'],
+          },
+          {
+            no: '03',
+            title: '多工作流并行推进',
+            meta: '统一标准 · 关联交付',
+            kind: 'parallel',
+            tracks: ['品牌VI规范', 'IP形象与应用资产', '数字传播触点', '线下传播物料'],
+            flow: ['方案设计', '前期评审', '修改优化', '交付文档'],
+          },
+          {
+            no: '04',
+            title: '外部供应商协调',
+            meta: '需求清晰 · 质量把关 · 进度推进',
+            kind: 'supplier',
+            from: '内部设计团队',
+            to: '外部供应商',
+            tags: ['协同沟通', '同步步调', '质量检查', '交付确认'],
+          },
+          {
+            no: '05',
+            title: '质量控制与项目闭环',
+            meta: '检查验收 · 规范沉淀 · 持续复用',
+            kind: 'cards',
+            items: [
+              { icon: 'ScanSearch', title: '图稿一致性检查' },
+              { icon: 'PackageCheck', title: '应用验收' },
+              { icon: 'FolderCheck', title: '设计文件归档' },
+              { icon: 'BookMarked', title: 'SOP沉淀', note: '品牌SOP与规范手册形成' },
+            ],
+          },
+        ],
+        footer: {
+          title: '统一品牌资产体系',
+          note: '从事务交付到体系化沉淀再到持续复用',
+        },
+        brand: '零次方机器人',
       },
     },
   },

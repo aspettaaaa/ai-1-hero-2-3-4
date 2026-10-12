@@ -4,16 +4,29 @@ import {
   useState,
 } from 'react';
 import {
+  ArrowDown,
   ArrowLeft,
   ArrowUpRight,
   Award,
+  BookMarked,
   Bot,
   Boxes,
   Brush,
+  CalendarCheck,
+  ClipboardList,
+  Cpu,
+  FolderCheck,
+  LayoutGrid,
   Mail,
+  Megaphone,
   MonitorPlay,
+  PackageCheck,
+  Palette,
   Phone,
+  ScanSearch,
   Sparkles,
+  Target,
+  UserCog,
 } from 'lucide-react';
 import { contacts, experiences, heroDetails, metrics, profile, projects, strengths } from './data.js';
 import Aurora from './components/Aurora.jsx';
@@ -254,6 +267,165 @@ function StudioProjectDetail({ project }) {
   );
 }
 
+/* 「品牌视觉体系全链路建设」流程图 —— 用 HTML 排版重建原设计稿版式。
+   数据来自 data.js 的 detail.followupWorkflow，按 section.kind 切换四种版式。 */
+const workflowIcons = {
+  ClipboardList,
+  Target,
+  LayoutGrid,
+  CalendarCheck,
+  Palette,
+  Boxes,
+  Cpu,
+  Megaphone,
+  ScanSearch,
+  PackageCheck,
+  FolderCheck,
+  BookMarked,
+};
+
+function WorkflowSectionBody({ section }) {
+  if (section.kind === 'cards') {
+    return (
+      <div className="wf-cards">
+        {section.items.map((item) => {
+          const Icon = workflowIcons[item.icon] ?? LayoutGrid;
+          return (
+            <div className="wf-card" key={item.title}>
+              <span className="wf-card-icon" aria-hidden="true">
+                <Icon size={15} strokeWidth={1.9} />
+              </span>
+              <strong>{item.title}</strong>
+              {item.note && <em>{item.note}</em>}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (section.kind === 'collab') {
+    return (
+      <div className="wf-collab">
+        <div className="wf-hub">
+          <span className="wf-hub-icon" aria-hidden="true">
+            <UserCog size={18} strokeWidth={1.8} />
+          </span>
+          <strong>{section.hub.label}</strong>
+          <em>{section.hub.meta}</em>
+        </div>
+        <div className="wf-ring">
+          {section.hub.ring.map((ring) => (
+            <span key={ring}>{ring}</span>
+          ))}
+        </div>
+        <ul className="wf-teams">
+          {section.teams.map((team) => {
+            const Icon = workflowIcons[team.icon] ?? Boxes;
+            return (
+              <li key={team.name}>
+                <span className="wf-team-icon" aria-hidden="true">
+                  <Icon size={14} strokeWidth={1.9} />
+                </span>
+                <div>
+                  <strong>
+                    {team.name}
+                    {team.tag && <b>{team.tag}</b>}
+                  </strong>
+                  <p>{team.points.join(' · ')}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="wf-output">
+          <span className="wf-output-label">协同产出</span>
+          <div className="wf-output-tags">
+            {section.outputs.map((output) => (
+              <span key={output}>{output}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (section.kind === 'parallel') {
+    return (
+      <div className="wf-parallel">
+        <ul className="wf-tracks">
+          {section.tracks.map((track) => (
+            <li key={track}>{track}</li>
+          ))}
+        </ul>
+        <div className="wf-flow">
+          {section.flow.map((step, index) => (
+            <div className="wf-flow-step" key={step}>
+              <span className="wf-step">{step}</span>
+              {index < section.flow.length - 1 && (
+                <ArrowDown className="wf-flow-arrow" size={13} strokeWidth={2} aria-hidden="true" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (section.kind === 'supplier') {
+    return (
+      <div className="wf-supplier">
+        <span className="wf-party">{section.from}</span>
+        <ArrowDown className="wf-supplier-arrow" size={14} strokeWidth={2} aria-hidden="true" />
+        <div className="wf-bridge">
+          {section.tags.map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
+        </div>
+        <ArrowDown className="wf-supplier-arrow" size={14} strokeWidth={2} aria-hidden="true" />
+        <span className="wf-party">{section.to}</span>
+      </div>
+    );
+  }
+
+  return null;
+}
+
+function WorkflowDiagram({ data }) {
+  return (
+    <div className="wf">
+      <header className="wf-head">
+        <span className="wf-kicker">{data.kicker}</span>
+        <h2>{data.title}</h2>
+        <p>{data.subtitle}</p>
+      </header>
+
+      <ol className="wf-sections">
+        {data.sections.map((section) => (
+          <li className="wf-section" key={section.no}>
+            <div className="wf-section-head">
+              <span className="wf-no">{section.no}</span>
+              <div className="wf-section-title">
+                <h3>{section.title}</h3>
+                <p>{section.meta}</p>
+              </div>
+            </div>
+            <WorkflowSectionBody section={section} />
+          </li>
+        ))}
+      </ol>
+
+      <div className="wf-outro">
+        <div className="wf-footer">
+          <strong>{data.footer.title}</strong>
+          <span>{data.footer.note}</span>
+        </div>
+        <span className="wf-brand">{data.brand}</span>
+      </div>
+    </div>
+  );
+}
+
 function ProjectDetail({ project }) {
   const { detail } = project;
   const isBoleProject = project.detailSlug === 'bole-brand-operations';
@@ -395,18 +567,11 @@ function ProjectDetail({ project }) {
             </div>
 
             <aside
-              className={`detail-followup-copy${detail.followupVisual ? ' detail-followup-copy--figure' : ''}`}
+              className={`detail-followup-copy${detail.followupWorkflow ? ' detail-followup-copy--workflow' : ''}`}
             >
               <div className="detail-copy-inner">
-                {detail.followupVisual ? (
-                  <figure className="detail-media-item detail-followup-figure">
-                    <img
-                      src={detail.followupVisual.src}
-                      alt={detail.followupVisual.alt}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </figure>
+                {detail.followupWorkflow ? (
+                  <WorkflowDiagram data={detail.followupWorkflow} />
                 ) : (
                   <div className="detail-section">
                     <span className="detail-section-label">MY ROLE</span>
