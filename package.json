@@ -7,7 +7,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "compress:web-assets": "node scripts/compress-web-assets.mjs"
+    "compress:assets": "node scripts/compress-assets.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",

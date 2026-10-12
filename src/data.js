@@ -20,9 +20,7 @@ export const profile = {
 
 export const metrics = [
   { value: '40+', label: '国内外设计奖项' },
-  { value: '99%', label: '品牌辨识度提升' },
   { value: '95%+', label: '创意方案采纳率' },
-  { value: '30%', label: 'UI体验提升' },
 ];
 
 export const heroDetails = [
@@ -81,7 +79,7 @@ export const projects = [
   {
     title: '零次方机器人从0-1品牌视觉体系建立',
     category: 'Brand System / IP Design',
-    image: '/assets/zero-brand-cover.png',
+    image: '/assets/zero-brand-cover.webp',
     detailSlug: 'zerith-brand-system',
     cta: '查看项目详情',
     summary:
@@ -108,17 +106,17 @@ export const projects = [
       ],
       images: [
         {
-          src: '/assets/robot-zero-brand-overview.jpg',
+          src: '/assets/robot-zero-brand-overview.webp',
           alt: '零次方机器人品牌视觉体系总览长图',
           caption: '品牌定位、Logo规范、色彩系统与基础视觉语言',
         },
         {
-          src: '/assets/robot-zero-brand-applications.jpg',
+          src: '/assets/robot-zero-brand-applications.webp',
           alt: '零次方机器人品牌应用延展长图',
           caption: '品牌物料、官网、移动端、展陈与宣传触点延展',
         },
         {
-          src: '/assets/robot-zero-ip-system.jpg',
+          src: '/assets/robot-zero-ip-system.webp',
           alt: '小零Zerry IP形象系统长图',
           caption: '小零IP设定、三视图、场景主视觉、表情包与衍生品',
         },
@@ -128,7 +126,7 @@ export const projects = [
   {
     title: '博乐科技品牌运营项目',
     category: 'Employer Brand / Campaign',
-    image: '/assets/bole-brand-cover.jpg',
+    image: '/assets/bole-brand-cover.webp',
     detailSlug: 'bole-brand-operations',
     cta: '查看项目详情',
     summary:
@@ -154,12 +152,12 @@ export const projects = [
       ],
       images: [
         {
-          src: '/assets/web/bole-brand-operations.jpg',
+          src: '/assets/web/bole-brand-operations.webp',
           alt: '博乐科技品牌运营与招聘视觉项目长图',
           caption: '招聘主视觉、品牌物料、礼盒与线上线下触点延展',
         },
         {
-          src: '/assets/bole-brand-value.jpg',
+          src: '/assets/bole-brand-value.webp',
           alt: '博乐科技品牌价值观与内容运营视觉长图',
           caption: '品牌价值观图形、内容栏目与社交媒体运营视觉',
         },
@@ -169,7 +167,7 @@ export const projects = [
   {
     title: '安口窑文创设计项目',
     category: 'Cultural Creative / Product Design',
-    image: '/assets/ankou-cultural-cover.png',
+    image: '/assets/ankou-cultural-cover.webp',
     detailSlug: 'ankou-cultural-design',
     cta: '查看项目详情',
     summary:
@@ -213,17 +211,17 @@ export const projects = [
       ],
       images: [
         {
-          src: '/assets/web/ankou-board.jpg',
+          src: '/assets/web/ankou-board.webp',
           alt: '安口窑文创设计视觉体系长图',
           caption: '安口窑纹样、产品与文创视觉体系展示',
         },
         {
-          src: '/assets/web/ankou-exhibition-board.jpg',
+          src: '/assets/web/ankou-exhibition-board.webp',
           alt: '绮岁万象安口盲盒设计展板',
           caption: '“绮岁万象”安口盲盒设计、包装结构与系列产品展示',
         },
         {
-          src: '/assets/ankou-return-to-nature-calendar.jpg',
+          src: '/assets/ankou-return-to-nature-calendar.webp',
           alt: '归真月历与野餐垫文创设计展示',
           caption: '“归真”月历设计、野餐垫与安口文创产品应用展示',
         },
@@ -233,7 +231,7 @@ export const projects = [
   {
     title: '个人工作室设计项目',
     category: 'Studio / Visual Experiment',
-    image: '/assets/project-studio.png',
+    image: '/assets/project-studio.webp',
     detailSlug: 'studio-visual-experiment',
     cta: '查看项目详情',
     summary:
@@ -259,17 +257,17 @@ export const projects = [
       ],
       images: [
         {
-          src: '/assets/studio-cat-toys-web.jpg',
+          src: '/assets/studio-cat-toys-web.webp',
           alt: 'C.A.T. TOYE个人工作室卡牌设计与图鉴设计长图',
           caption: 'C.A.T. TOYE个人工作室卡牌设计、图鉴设计与系列视觉实验',
         },
         {
-          src: '/assets/atuan-where-did-you-go.jpg',
+          src: '/assets/atuan-where-did-you-go.webp',
           alt: '阿团去哪了IP角色与游戏视觉设计长图',
           caption: '“阿团去哪了”角色设定、场景视觉、UI界面与素材延展',
         },
         {
-          src: '/assets/studio-xuanling-web.jpg',
+          src: '/assets/studio-xuanling-web.webp',
           alt: '玄翎IP角色设计与视觉应用长图',
           caption: '玄翎IP角色设定、三视图、表情包、主视觉与场景延展',
         },

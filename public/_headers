@@ -1,0 +1,19 @@
+# Cloudflare Pages 自定义响应头
+# 文档: https://developers.cloudflare.com/pages/configuration/headers/
+
+# HTML 入口始终回源校验，保证新部署立刻生效
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# 静态媒体：CDN 与浏览器长缓存，回访不再重复下载
+# 注意：如替换了同名文件，请务必改名（或加版本号），否则浏览器会继续用旧缓存
+/assets/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=604800
+
+# 安全基线
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

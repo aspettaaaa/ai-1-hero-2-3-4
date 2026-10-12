@@ -12,6 +12,11 @@ dist/
 *.log
 .tmp-*.png
 
+# === 资源压缩工具的本地缓存 ===
+# .cache/ffmpeg 存放本地 ffmpeg 可执行文件（60MB+，不入库）
+.cache/
+.asset-manifest.json
+
 # === 嵌套的仓库副本 ===
 new git/
 

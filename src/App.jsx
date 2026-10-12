@@ -159,7 +159,7 @@ function StudioProjectDetail({ project }) {
               <strong>{detail.subtitle}</strong>
             </div>
             <figure className="detail-media-item">
-              <img src={detail.images[0].src} alt={detail.images[0].alt} />
+              <img src={detail.images[0].src} alt={detail.images[0].alt} loading="lazy" decoding="async" />
               <figcaption>{detail.images[0].caption}</figcaption>
             </figure>
           </div>
@@ -205,7 +205,7 @@ function StudioProjectDetail({ project }) {
             <article className="studio-detail-row" key={image.src}>
               <div className="detail-visual-column studio-detail-visual studio-detail-visual--continuation">
                 <figure className="detail-media-item">
-                  <img src={image.src} alt={image.alt} />
+                  <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
                   <figcaption>{image.caption}</figcaption>
                 </figure>
               </div>
@@ -308,7 +308,7 @@ function ProjectDetail({ project }) {
               <div className="detail-longform-stack">
                 {detail.images.map((image) => (
                   <figure className="detail-media-item" key={image.src}>
-                    <img src={image.src} alt={image.alt} />
+                    <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
                     <figcaption>{image.caption}</figcaption>
                   </figure>
                 ))}
@@ -327,14 +327,14 @@ function ProjectDetail({ project }) {
                 <div className="detail-longform-stack detail-studio-gallery">
                   {detail.images.map((image) => (
                     <figure className="detail-media-item" key={image.src}>
-                      <img src={image.src} alt={image.alt} />
+                      <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
                       <figcaption>{image.caption}</figcaption>
                     </figure>
                   ))}
                 </div>
               ) : (
                 <figure className="detail-media-item">
-                  <img src={detail.images[0].src} alt={detail.images[0].alt} />
+                  <img src={detail.images[0].src} alt={detail.images[0].alt} loading="lazy" decoding="async" />
                   <figcaption>{detail.images[0].caption}</figcaption>
                 </figure>
               )}
@@ -389,7 +389,7 @@ function ProjectDetail({ project }) {
           <div className="detail-followup-layout">
             <div className="detail-visual-column detail-followup-visual" aria-label="项目延展视觉">
               <figure className="detail-media-item">
-                <img src={detail.images[1].src} alt={detail.images[1].alt} />
+                <img src={detail.images[1].src} alt={detail.images[1].alt} loading="lazy" decoding="async" />
                 <figcaption>{detail.images[1].caption}</figcaption>
               </figure>
             </div>
@@ -421,7 +421,7 @@ function ProjectDetail({ project }) {
           <div className="detail-tail-layout">
             <div className="detail-visual-column detail-tail-visual" aria-label="项目IP视觉">
               <figure className="detail-media-item">
-                <img src={detail.images[2].src} alt={detail.images[2].alt} />
+                <img src={detail.images[2].src} alt={detail.images[2].alt} loading="lazy" decoding="async" />
                 <figcaption>{detail.images[2].caption}</figcaption>
               </figure>
             </div>
@@ -437,7 +437,7 @@ function Hero() {
     <section className="hero section-shell" id="hero">
       <video
         className="hero-video"
-        poster="/assets/hero-poster.png"
+        poster="/assets/hero-poster.webp"
         autoPlay
         muted
         loop
@@ -519,7 +519,7 @@ function About() {
       </div>
         <div className="about-grid">
           <div className="portrait-panel">
-          <img src="/assets/portrait-photo.jpg" alt="张子薇个人照片" />
+          <img src="/assets/portrait-photo.webp" alt="张子薇个人照片" loading="lazy" decoding="async" />
           <div>
             <strong>{profile.role}</strong>
             <span>Brand / IP / Motion / AI</span>
@@ -620,7 +620,7 @@ function Projects() {
                   <source src={project.coverVideo} type="video/mp4" />
                 </video>
               ) : (
-                <img src={project.image} alt={project.title} />
+                <img src={project.image} alt={project.title} loading="lazy" decoding="async" />
               )}
             </div>
             <div className="project-copy">
