@@ -428,6 +428,64 @@ function WorkflowDiagram({ data }) {
 
 function ProjectDetail({ project }) {
   const { detail } = project;
+  const workflowFrameRef = useRef(null);
+
+  // 「延展视觉」右栏是视口吸附的取景框：整页滚动时把流程图内容向上推，
+  // 推满（内容底边落到框底）正好是本行吸附行程的终点，于是流程图末尾
+  // 与下一行 IP 视觉的右栏底板严丝合缝地接上，不用栏内再单独滚动。
+  useEffect(() => {
+    const frame = workflowFrameRef.current;
+    if (!frame || !detail.followupWorkflow) {
+      return undefined;
+    }
+
+    const inner = frame.firstElementChild;
+    const row = frame.closest('.detail-followup-layout');
+    if (!inner || !row) {
+      return undefined;
+    }
+
+    let rafId = 0;
+
+    const apply = () => {
+      rafId = 0;
+      const frameHeight = frame.clientHeight;
+      const overflow = Math.max(inner.scrollHeight - frameHeight, 0);
+      if (frameHeight === 0 || overflow === 0) {
+        frame.style.setProperty('--wf-rise', '0px');
+        return;
+      }
+      const rowTop = row.getBoundingClientRect().top + window.scrollY;
+      const travel = Math.max(row.offsetHeight - frameHeight, 1);
+      const progress = Math.min(Math.max((window.scrollY - rowTop) / travel, 0), 1);
+      frame.style.setProperty('--wf-rise', `${(-progress * overflow).toFixed(2)}px`);
+    };
+
+    const schedule = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(apply);
+      }
+    };
+
+    apply();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+
+    const observer = new ResizeObserver(schedule);
+    observer.observe(inner);
+    observer.observe(row);
+
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      observer.disconnect();
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+      frame.style.removeProperty('--wf-rise');
+    };
+  }, [detail]);
+
   const isBoleProject = project.detailSlug === 'bole-brand-operations';
   const isAnkouProject = project.detailSlug === 'ankou-cultural-design';
   const isStudioProject = project.detailSlug === 'studio-visual-experiment';
@@ -558,7 +616,9 @@ function ProjectDetail({ project }) {
         </div>
 
         {hasFollowupImage && (
-          <div className="detail-followup-layout">
+          <div
+            className={`detail-followup-layout${detail.followupWorkflow ? ' detail-followup-layout--workflow' : ''}`}
+          >
             <div className="detail-visual-column detail-followup-visual" aria-label="项目延展视觉">
               <figure className="detail-media-item">
                 <img src={detail.images[1].src} alt={detail.images[1].alt} loading="lazy" decoding="async" />
@@ -568,6 +628,7 @@ function ProjectDetail({ project }) {
 
             <aside
               className={`detail-followup-copy${detail.followupWorkflow ? ' detail-followup-copy--workflow' : ''}`}
+              ref={detail.followupWorkflow ? workflowFrameRef : null}
             >
               <div className="detail-copy-inner">
                 {detail.followupWorkflow ? (
@@ -596,7 +657,9 @@ function ProjectDetail({ project }) {
         )}
 
         {!isAnkouProject && !isStudioProject && detail.images[2] && (
-          <div className="detail-tail-layout">
+          <div
+            className={`detail-tail-layout${detail.followupWorkflow ? ' detail-tail-layout--joined' : ''}`}
+          >
             <div className="detail-visual-column detail-tail-visual" aria-label="项目IP视觉">
               <figure className="detail-media-item">
                 <img src={detail.images[2].src} alt={detail.images[2].alt} loading="lazy" decoding="async" />

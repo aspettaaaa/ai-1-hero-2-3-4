@@ -1431,10 +1431,12 @@ h1 {
    注意：不改变 2fr/1fr 栅格比例，避免左侧延展视觉图宽度与其它行不一致。
    ============================================================ */
 
-/* 吸附：本栏固定在视口内，不随左侧延展长图（约 3337px）滚动。
-   内容（1440 下约 1937px）高于视口，因此与上半部分的 .detail-copy-column 用同一套
-   方案：栏高锁 100vh + 内部独立滚动，由用户手动下滚看完整张图。
-   （不设 align-self: stretch，留出行内空档才能产生吸附位移。） */
+/* 右栏 = 视口吸附的取景框，不随左侧延展长图（约 3337px）滚动。
+   框高锁 100vh，流程图内容由 JS 按本行滚动进度向上推（--wf-rise），
+   推满时内容底边正好落在框底，而框底此刻正与本行底边重合，
+   于是流程图末尾与下一行 IP 视觉的右栏底板接住，全程无需栏内单独滚动。
+   底板不画在这里：本框透明、不设圆角，底板铺在整行高的
+   .detail-followup-layout--workflow::before 上，滚动中才不会在交界处露缝。 */
 .detail-followup-copy--workflow {
   position: sticky;
   top: 0;
@@ -1442,10 +1444,39 @@ h1 {
   height: 100vh;
   max-height: 100vh;
   min-height: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(182, 118, 255, 0.42) transparent;
+  overflow: hidden;
+  background: none;
+  border-radius: 0;
+}
+
+/* 右栏底板：铺满本行右侧整高，与下一行（IP 视觉）的底板拼成一整块 */
+.detail-followup-layout--workflow::before {
+  content: '';
+  grid-column: 2;
+  grid-row: 1;
+  align-self: stretch;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background:
+    linear-gradient(145deg, rgba(182, 118, 255, 0.04), transparent 40%),
+    #100b19;
+  pointer-events: none;
+}
+
+/* 取景框与底板占同一格，框在上层 */
+.detail-followup-layout--workflow .detail-followup-copy {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* 下一行（IP 视觉）右侧接住上面的底板：同色、只保留下方圆角 */
+.detail-tail-layout--joined::before {
+  content: '';
+  grid-column: 2;
+  grid-row: 1;
+  align-self: stretch;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  background: #100b19;
+  pointer-events: none;
 }
 
 /* 内容密集，收窄左右内边距换取可用宽度（不动栅格，左图宽度不受影响） */
@@ -1454,6 +1485,9 @@ h1 {
   container-type: inline-size;
   padding-right: clamp(20px, 3vw, 46px);
   padding-left: clamp(20px, 3vw, 46px);
+  /* --wf-rise 由 ProjectDetail 的滚动监听写入，0 → -(内容高 - 框高) */
+  transform: translateY(var(--wf-rise, 0px));
+  will-change: transform;
 }
 
 /* 尺寸全部用 em，基准字号随栏宽走：
@@ -2294,13 +2328,27 @@ h1 {
     min-height: auto;
   }
 
-  /* 单列堆叠后取消吸附与内部滚动，流程图整块随页面正常滚动 */
+  /* 单列堆叠后取消吸附、滚动位移与整行底板，恢复本栏自身底色 */
   .detail-followup-copy--workflow {
     position: relative;
     height: auto;
     max-height: none;
     min-height: 0;
     overflow: visible;
+    border-radius: 0;
+    background:
+      linear-gradient(145deg, rgba(182, 118, 255, 0.04), transparent 40%),
+      #100b19;
+  }
+
+  .detail-followup-copy--workflow .detail-copy-inner {
+    transform: none;
+    will-change: auto;
+  }
+
+  .detail-followup-layout--workflow::before,
+  .detail-tail-layout--joined::before {
+    display: none;
   }
 
   .detail-followup-copy .detail-copy-inner {
