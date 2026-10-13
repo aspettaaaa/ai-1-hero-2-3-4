@@ -1431,24 +1431,18 @@ h1 {
    注意：不改变 2fr/1fr 栅格比例，避免左侧延展视觉图宽度与其它行不一致。
    ============================================================ */
 
-/* 右栏 = 视口吸附的滚动框，不随左侧延展长图（约 3337px）滚动。
-   框高锁 100vh，与上半部分的 .detail-copy-column 用同一套方案：
-   内容（1440 下约 2132px）高于视口，靠栏内独立滚动查看，界面不随整页联动。
-   （不设 align-self: stretch，留出行内空档才能产生吸附位移。）
+/* 右栏跟随页面滚动：与左侧延展长图同步移动，不做吸附、不做栏内滚动，
+   整页往下滚就能把流程图一路看完（不再需要把鼠标停在栏内单独滚）。
    本框自身透明、不设圆角，底色由铺满整行高的
    .detail-followup-layout--workflow::before 承担，
-   于是滚到行尾时框底也不会露出页面底色，右栏与下一行连成一整块。 */
+   于是整行右侧从流程图一路到下一行 IP 视觉都是一整块深色面板，不会分断。 */
 .detail-followup-copy--workflow {
-  position: sticky;
-  top: 0;
-  align-self: start;
-  height: 100vh;
-  max-height: 100vh;
+  position: static;
+  align-self: stretch;
+  height: auto;
+  max-height: none;
   min-height: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(182, 118, 255, 0.42) transparent;
+  overflow: visible;
   background: none;
   border-radius: 0;
 }
@@ -2329,9 +2323,12 @@ h1 {
     min-height: auto;
   }
 
-  /* 单列堆叠后取消吸附与整行底板，恢复本栏自身底色，整块随页面正常滚动 */
+  /* 单列堆叠后取消整行底板与栅格定位，恢复本栏自身底色，整块随页面正常滚动 */
   .detail-followup-copy--workflow {
-    position: relative;
+    position: static;
+    align-self: auto;
+    grid-column: auto;
+    grid-row: auto;
     height: auto;
     max-height: none;
     min-height: 0;
